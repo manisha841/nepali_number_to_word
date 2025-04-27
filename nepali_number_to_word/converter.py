@@ -62,15 +62,33 @@ class NepaliNumberConverter:
 
     def convert_to_nepali_numerals(self, number: int) -> str:
         """
-        Convert a number to Nepali numerals with /- suffix
-        Example: 1000 -> १००० /-
+        Convert a number to Nepali numerals with /- suffix and Nepali-style comma formatting
+        Example: 1000 -> १,००० /-
         """
         if number < 0:
             return "-" + self.convert_to_nepali_numerals(abs(number))
 
         number_str = str(number)
         nepali_num = "".join(NEPALI_NUMERALS[digit] for digit in number_str)
-        return f"{nepali_num} /-"
+
+        parts = []
+        if len(nepali_num) > 3:
+            parts.append(nepali_num[-3:])
+            nepali_num = nepali_num[:-3]
+        else:
+            parts.append(nepali_num)
+            nepali_num = ""
+
+        while len(nepali_num) > 0:
+            if len(nepali_num) >= 2:
+                parts.append(nepali_num[-2:])
+                nepali_num = nepali_num[:-2]
+            else:
+                parts.append(nepali_num)
+                nepali_num = ""
+
+        formatted_num = ",".join(reversed(parts))
+        return f"{formatted_num} /-"
 
     def _convert_number_part(self, number: int) -> str:
         """Convert any number part (1-99, 100-999, etc.) to Nepali words"""

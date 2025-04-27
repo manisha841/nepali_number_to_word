@@ -32,6 +32,20 @@ class NepaliNumberConverter:
         ]
         self.thousands = ["", "हजार", "लाख", "करोड", "अरब", "खरब"]
 
+        # Nepali numerals mapping
+        self.nepali_numerals = {
+            "0": "०",
+            "1": "१",
+            "2": "२",
+            "3": "३",
+            "4": "४",
+            "5": "५",
+            "6": "६",
+            "7": "७",
+            "8": "८",
+            "9": "९",
+        }
+
     def convert_to_nepali_words(self, number: int) -> str:
         """
         Convert a number to Nepali words
@@ -56,6 +70,18 @@ class NepaliNumberConverter:
 
         result = " ".join(filter(None, words))
         return result.strip() + " रूपैयाँ मात्र"
+
+    def convert_to_nepali_numerals(self, number: int) -> str:
+        """
+        Convert a number to Nepali numerals with /- suffix
+        Example: 1000 -> १००० /-
+        """
+        if number < 0:
+            return "-" + self.convert_to_nepali_numerals(abs(number))
+
+        number_str = str(number)
+        nepali_num = "".join(self.nepali_numerals[digit] for digit in number_str)
+        return f"{nepali_num} /-"
 
     def _convert_three_digits(self, number: int) -> str:
         """Convert a three-digit number to Nepali words"""

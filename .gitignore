@@ -3,15 +3,20 @@
 .venv
 
 
-*__pycache__/*
-
 dist/
 
-
-.ruff_cache
 
 .mypy_cache
 
 .pytest_cache
 
+
+.idea
+
+.vscode
+
+
+# Misc
 .DS_Store
+**/__pycache__/
+.ruff_cache/

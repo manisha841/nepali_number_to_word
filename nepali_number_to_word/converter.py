@@ -32,7 +32,6 @@ class NepaliNumberConverter:
         ]
         self.thousands = ["", "हजार", "लाख", "करोड", "अरब", "खरब"]
 
-        # Nepali numerals mapping
         self.nepali_numerals = {
             "0": "०",
             "1": "१",

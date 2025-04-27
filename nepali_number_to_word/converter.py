@@ -2,7 +2,6 @@
 Core number to Nepali word conversion logic
 """
 
-from typing import List
 from .constants import (
     UNITS,
     TENS,
@@ -48,7 +47,7 @@ class NepaliNumberConverter:
         if number < 0:
             return "ऋणात्मक " + cls.convert_to_nepali_words(abs(number))
 
-        words: List[str] = []
+        words: list[str] = []
         remaining = abs(number)
 
         for unit_value, unit_name in cls.UNITS:
@@ -102,7 +101,7 @@ class NepaliNumberConverter:
         if len(number_str) <= 3:
             return number_str
 
-        parts: List[str] = [number_str[-3:]]
+        parts: list[str] = [number_str[-3:]]
         remaining = number_str[:-3]
 
         while remaining:

@@ -3,7 +3,7 @@
 .venv
 
 
-__pycache__
+*__pycache__/*
 
 dist/
 
@@ -14,3 +14,4 @@ dist/
 
 .pytest_cache
 
+.DS_Store

@@ -18,5 +18,5 @@ dist/
 
 # Misc
 .DS_Store
-**/__pycache__/
 .ruff_cache/
+*/__pycache__

@@ -23,6 +23,12 @@ class NepaliNumberConverter:
 
         words = []
 
+        # Handle kharab (खर्ब)
+        kharab = number // 100000000000
+        if kharab > 0:
+            words.append(self._convert_number_part(kharab) + " खर्ब")
+            number = number % 100000000000
+
         # Handle arab (अरब)
         arab = number // 1000000000
         if arab > 0:

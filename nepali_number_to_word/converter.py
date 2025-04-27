@@ -2,12 +2,35 @@
 Core number to Nepali word conversion logic
 """
 
+
 class NepaliNumberConverter:
     def __init__(self):
-        self.units = ['', 'एक', 'दुई', 'तीन', 'चार', 'पाँच', 'छ', 'सात', 'आठ', 'नौ']
-        self.tens = ['', 'दस', 'बीस', 'तीस', 'चालीस', 'पचास', 'साठी', 'सत्तरी', 'अस्सी', 'नब्बे']
-        self.hundreds = ['', 'एक सय', 'दुई सय', 'तीन सय', 'चार सय', 'पाँच सय', 'छ सय', 'सात सय', 'आठ सय', 'नौ सय']
-        self.thousands = ['', 'हजार', 'लाख', 'करोड', 'अरब', 'खरब']
+        self.units = ["", "एक", "दुई", "तीन", "चार", "पाँच", "छ", "सात", "आठ", "नौ"]
+        self.tens = [
+            "",
+            "दस",
+            "बीस",
+            "तीस",
+            "चालीस",
+            "पचास",
+            "साठी",
+            "सत्तरी",
+            "अस्सी",
+            "नब्बे",
+        ]
+        self.hundreds = [
+            "",
+            "एक सय",
+            "दुई सय",
+            "तीन सय",
+            "चार सय",
+            "पाँच सय",
+            "छ सय",
+            "सात सय",
+            "आठ सय",
+            "नौ सय",
+        ]
+        self.thousands = ["", "हजार", "लाख", "करोड", "अरब", "खरब"]
 
     def convert_to_nepali_words(self, number: int) -> str:
         """
@@ -38,12 +61,12 @@ class NepaliNumberConverter:
         """Convert a three-digit number to Nepali words"""
         if number == 0:
             return ""
-        
+
         words = []
         hundred = number // 100
         if hundred > 0:
             words.append(self.hundreds[hundred])
-        
+
         remaining = number % 100
         if remaining > 0:
             if remaining < 10:
@@ -55,5 +78,5 @@ class NepaliNumberConverter:
                     words.append(self.tens[ten])
                 if unit > 0:
                     words.append(self.units[unit])
-        
-        return " ".join(filter(None, words)) 
+
+        return " ".join(filter(None, words))

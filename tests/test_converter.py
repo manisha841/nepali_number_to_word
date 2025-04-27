@@ -2,12 +2,12 @@
 Test cases for Nepali number converter
 """
 
-import pytest
 from nepali_number_to_word.converter import NepaliNumberConverter
+
 
 def test_convert_to_nepali_words():
     converter = NepaliNumberConverter()
-    
+
     # Test cases
     test_cases = [
         (0, "शून्य रूपैयाँ मात्र"),
@@ -23,6 +23,6 @@ def test_convert_to_nepali_words():
         (1234, "एक हजार दुई सय तीस चार रूपैयाँ मात्र"),
         (-1000, "ऋणात्मक एक हजार रूपैयाँ मात्र"),
     ]
-    
+
     for number, expected in test_cases:
-        assert converter.convert_to_nepali_words(number) == expected 
+        assert converter.convert_to_nepali_words(number) == expected

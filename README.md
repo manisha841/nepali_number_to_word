@@ -1,6 +1,6 @@
 # Nepali Number to Word Converter
 
-A Python package that converts numbers to Nepali words and numerals following proper OOP principles.
+A Python package that converts numbers to Nepali words and numerals.
 
 ## Features
 

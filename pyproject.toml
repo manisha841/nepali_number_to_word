@@ -1,6 +1,6 @@
 [project]
 name = "nepali-number-to-word"
-version = "0.1.0"
+version = "0.1.1"
 description = "A Python package to convert numbers to Nepali words"
 readme = "README.md"
 authors = [
@@ -13,10 +13,6 @@ dependencies = [
 requires-python = ">=3.8"
 license = {text = "MIT"}
 
-project_urls = {
-    "Bug Tracker" = "https://github.com/manisha841/nepali_number_to_word/issues",
-    "Source Code" = "https://github.com/manisha841/nepali_number_to_word",
-}
 
 [build-system]
 requires = ["hatchling"]

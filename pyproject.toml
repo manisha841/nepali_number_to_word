@@ -1,6 +1,6 @@
 [project]
 name = "nepali-number-to-word"
-version = "0.1.1"
+version = "0.1.2"
 description = "A Python package to convert numbers to Nepali words"
 readme = "README.md"
 authors = [

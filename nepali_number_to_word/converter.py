@@ -30,22 +30,36 @@ class NepaliNumberConverter:
     ]
 
     @classmethod
-    def convert_to_nepali_words(cls, number: int) -> str:
+    def convert_to_nepali_words(cls, number: int | float) -> str:
         """
         Convert a number to Nepali words (class method)
         Args:
-            number: The number to convert
+            number: The number to convert (int or float)
         Returns:
             Nepali words representation of the number
         Raises:
             ValueError: If number exceeds maximum supported value
         """
+        if isinstance(number, float):
+            rounded_number = round(number, 2)
+            whole_part = int(rounded_number)
+            paisa_part = int(round((rounded_number - whole_part) * 100))
+
+            if paisa_part > 0:
+                return f"{cls._convert_whole_number(whole_part)}, {cls._convert_paisa(paisa_part)}"
+            return cls._convert_whole_number(whole_part)
+
+        return cls._convert_whole_number(number)
+
+    @classmethod
+    def _convert_whole_number(cls, number: int) -> str:
+        """Convert whole number part to Nepali words"""
         cls._validate_number_range(number)
 
         if number == 0:
-            return "शून्य"
+            return "शून्य रुपैंया"
         if number < 0:
-            return "ऋणात्मक " + cls.convert_to_nepali_words(abs(number))
+            return "ऋणात्मक " + cls._convert_whole_number(abs(number))
 
         words: list[str] = []
         remaining = abs(number)
@@ -59,32 +73,58 @@ class NepaliNumberConverter:
         if remaining > 0:
             words.append(cls._convert_number_part(remaining))
 
-        return " ".join(filter(None, words)) + " रूपैयाँ मात्र"
+        return " ".join(filter(None, words)) + " रुपैंया"
+
+    @classmethod
+    def _convert_paisa(cls, paisa: int) -> str:
+        """Convert paisa part to Nepali words"""
+        if paisa == 0:
+            return ""
+        return cls._convert_number_part(paisa) + " पैसा"
 
     @staticmethod
-    def convert_to_nepali_numerals(number: int) -> str:
+    def convert_to_nepali_numerals(number: int | float) -> str:
         """
         Convert a number to Nepali numerals with formatting (static method)
         Args:
-            number: The number to convert
+            number: The number to convert (int or float)
         Returns:
             Formatted Nepali numerals string
         Raises:
             ValueError: If number exceeds maximum supported value
         """
+        if isinstance(number, float):
+            rounded_number = round(number, 2)
+            whole_part = int(rounded_number)
+            paisa_part = int(round((rounded_number - whole_part) * 100))
+
+            whole_numerals = NepaliNumberConverter._convert_whole_to_numerals(
+                whole_part
+            )
+            if paisa_part > 0:
+                paisa_numerals = NepaliNumberConverter._convert_whole_to_numerals(
+                    paisa_part
+                )
+                return f"{whole_numerals}.{paisa_numerals} /-"
+            return f"{whole_numerals} /-"
+
+        return f"{NepaliNumberConverter._convert_whole_to_numerals(number)} /-"
+
+    @staticmethod
+    def _convert_whole_to_numerals(number: int) -> str:
+        """Convert whole number part to Nepali numerals"""
         NepaliNumberConverter._validate_number_range(number)
 
         if number < 0:
-            return "-" + NepaliNumberConverter.convert_to_nepali_numerals(abs(number))
+            return "-" + NepaliNumberConverter._convert_whole_to_numerals(abs(number))
 
         nepali_digits = "".join(NEPALI_NUMERALS[d] for d in str(abs(number)))
-        formatted = NepaliNumberConverter._format_with_commas(nepali_digits)
-        return f"{formatted} /-"
+        return NepaliNumberConverter._format_with_commas(nepali_digits)
 
     @classmethod
-    def _validate_number_range(cls, number: int) -> None:
+    def _validate_number_range(cls, number: int | float) -> None:
         """Validate that number is within supported range"""
-        if abs(number) > cls.MAX_SUPPORTED_VALUE:
+        if abs(int(number)) > cls.MAX_SUPPORTED_VALUE:
             raise ValueError(
                 f"Numbers beyond {cls.MAX_SUPPORTED_VALUE:,} (99 खर्ब) are not supported"
             )

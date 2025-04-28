@@ -197,3 +197,7 @@ class NepaliNumberConverter:
         if remaining > 0:
             parts.append(NepaliNumberConverter._convert_two_digits(remaining))
         return " ".join(filter(None, parts))
+
+
+convert_to_nepali_words = NepaliNumberConverter.convert_to_nepali_words
+convert_to_nepali_numerals = NepaliNumberConverter.convert_to_nepali_numerals
